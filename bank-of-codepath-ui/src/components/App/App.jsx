@@ -12,6 +12,13 @@ export default function App() {
   const [transfers, setTransfers] = useState([]);
   const [error, setError] = useState("");
   const [filterInputValue, setFilterInputValue] = useState("");
+  const [newTransactionForm, setNewTransactionForm] = useState({
+    category: "",
+    description: "",
+    amount: 0,
+  });
+
+  const [isCreating, setIsCreating] = useState(false);
 
   React.useEffect(() => {
     console.log("app mounting..");
@@ -41,6 +48,10 @@ export default function App() {
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     filterInputValue={filterInputValue}
+                    newTransactionForm={newTransactionForm}
+                    setNewTransactionForm={setNewTransactionForm}
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
                   />
                 }
               />

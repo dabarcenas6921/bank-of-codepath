@@ -13,7 +13,7 @@ export default function BankActivity({ transactions }) {
           <span className="col x2">Amount</span>
           <span className="col x15">Date</span>
         </div>
-        {transactions ? "has stuff" : "nothing"}
+        {/* {} */}
       </div>
 
       <h2>Transfers</h2>

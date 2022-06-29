@@ -15,6 +15,10 @@ export default function Home({
   isLoading,
   setIsLoading,
   filterInputValue,
+  newTransactionForm,
+  setNewTransactionForm,
+  isCreating,
+  setIsCreating,
 }) {
   const filteredTransactions = transactions
     ? transactions.filter((transaction) => {
@@ -25,6 +29,7 @@ export default function Home({
           : transactions;
       })
     : null;
+
   useEffect(() => {
     setIsLoading(true);
 
@@ -59,9 +64,39 @@ export default function Home({
     console.log("home mounting...");
   }, []);
 
+  async function handleOnCreateTransaction() {
+    setIsCreating(true);
+    axios
+      .post("http://localhost:3001/bank/transactions", {
+        transaction: newTransactionForm,
+      })
+      .then((response) => {
+        console.log(response);
+        setTransactions((current) => [...current, response.data.transaction]);
+      })
+      .catch((err) => {
+        setError(err);
+        setIsCreating(false);
+      })
+      .finally((response) => {
+        setNewTransactionForm({
+          category: "",
+          description: "",
+          amount: 0,
+        });
+        setIsCreating(false);
+      });
+  }
+
   return (
     <div className="home">
-      <AddTransaction />
+      <AddTransaction
+        isCreating={isCreating}
+        setIsCreating={setIsCreating}
+        form={newTransactionForm}
+        setForm={setNewTransactionForm}
+        handleOnSubmit={handleOnCreateTransaction}
+      />
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
