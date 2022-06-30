@@ -100,7 +100,10 @@ export default function Home({
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <BankActivity transactions={filteredTransactions} />
+        <BankActivity
+          transactions={filteredTransactions}
+          transfers={transfers}
+        />
       )}
       {error ? <h2 className="error">{error}</h2> : null}
     </div>
